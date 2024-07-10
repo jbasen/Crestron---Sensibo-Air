@@ -1,5 +1,7 @@
 # Crestron---Sensibo-Air
 
+v1.5 - Misc bug fixes and enhancements
+
 v1.1 - corrects parsing problems with Fujitsu mini-split systems
 
 This module provides control of a Sensbo Air from a Crestron 3-Series or 
