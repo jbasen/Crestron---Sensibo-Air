@@ -1,5 +1,35 @@
 # Crestron---Sensibo-Air
 
+v1.6 - This version addresses an issue with the amount of messages
+the module sends to the Sensibo API, which would go above the limitation
+that Sensibo implemented to manage traffic to their API.  The issue is this. 
+When you send a command to the Sensibo API based on a user selection the 
+API doesn't respond back with information that tells you it has been accepted 
+and implemented. So, to keep the outputs of the module in synch with user 
+selections I was sending a refresh command right afterwards. 
+This doubles the number of calls and if, for example, multiple commands are 
+sent in quick progression based on a  user favorite setting, then this 
+can cause a lot of commands to be sent in quick sucession which could 
+easily run afoul of the API police trying to manage API traffic.  
+
+I've added a new parameter named Manual_Refresh_Required.  When this is 
+set to true a refresh command will not be sent after each other command.  
+Instead the code will have to manage when to refresh the outputs of the module 
+manually.
+
+I also included some additional notes on how to implement the user's ability 
+to change the target temperature.  If, for example, this is implemented by 
+the user triggering the up/down inputs on an analog increment, then the output 
+of the ainc should be run into an abuf with the enable on the abuf tied to a 
+"Set" button on a tp.  The user will then be able to use the abuf to change 
+the temperature and only after pressing the set button will this new value be 
+sent to the module.  This, again, minimizes the number of API calls. 
+
+A user who tested this simply used a oscillator to ping the refresh input
+every 5 minutes to catch up the feedback on the module if a user controlled 
+the Sensibo with some other method besides the Crestron system. Doing this with
+the v1.6 module worked well for him.
+
 v1.5 - Misc bug fixes and enhancements
 
 v1.1 - corrects parsing problems with Fujitsu mini-split systems
